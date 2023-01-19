@@ -1,0 +1,9 @@
+port: 
+
+logger-output-path:
+
+oathStateString:
+
+google:
+  clientID:
+  clientScret:
