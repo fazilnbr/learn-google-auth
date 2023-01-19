@@ -1,9 +1,9 @@
-port: 
+port: 9090
 
 logger-output-path:
 
-oathStateString:
+oauthStateString: "your own secret auth string type heare"
 
 google:
-  clientID:
-  clientScret:
+  clientID: "google client ID paste here"
+  clientSecret: "google client secret key paste here"
