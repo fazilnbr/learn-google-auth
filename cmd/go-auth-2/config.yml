@@ -1,9 +1,9 @@
-port: 9090
+port: 8080
 
 logger-output-path:
 
-oauthStateString: "your own secret auth string type heare"
+oauthStateString: "kjfgkldfjglkjakljgkldajlkdfankjjakldgjkaldjgalkjglkadjglkadjk"
 
 google:
-  clientID: "google client ID paste here"
-  clientSecret: "google client secret key paste here"
+  clientID: "812913212349-nv9rc3hgjerj134mapsksu1nq1m9b3nd.apps.googleusercontent.com"
+  clientSecret: "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"
