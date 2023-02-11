@@ -1,33 +1,30 @@
 package services
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
 
-	"google-auth/internal/helpers/pages"
-
+	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"
 )
 
 /*
 HandleMain Function renders the index page when the application index route is called
 */
-func HandleMain(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(pages.IndexPage))
+func HandleMain(c *gin.Context) {
+	c.Writer.Header().Set("Content-Type", "text/html; charset=utf-8")
+	c.Status(http.StatusOK)
+	c.HTML(http.StatusOK, "index.html", nil)
 }
 
-/*
-HandleLogin Function
-*/
-func HandleLogin(w http.ResponseWriter, r *http.Request, oauthConf *oauth2.Config, oauthStateString string) {
+func HandileLogin(c *gin.Context, oauthConf *oauth2.Config, oauthStateString string) error {
 	URL, err := url.Parse(oauthConf.Endpoint.AuthURL)
 	if err != nil {
-		// loger.Log.Error("Parse: " + err.Error())
+		fmt.Printf("\n\n\nerror in handile login :%v\n\n", err)
+		return err
 	}
-	// loger.Log.Info(URL.String())
 	parameters := url.Values{}
 	parameters.Add("client_id", oauthConf.ClientID)
 	parameters.Add("scope", strings.Join(oauthConf.Scopes, " "))
@@ -36,6 +33,8 @@ func HandleLogin(w http.ResponseWriter, r *http.Request, oauthConf *oauth2.Confi
 	parameters.Add("state", oauthStateString)
 	URL.RawQuery = parameters.Encode()
 	url := URL.String()
-	// loger.Log.Info(url)
-	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+	fmt.Printf("\n\nurl : %v\n\n", oauthConf.RedirectURL)
+	c.Redirect(http.StatusTemporaryRedirect, url)
+	return nil
+
 }
